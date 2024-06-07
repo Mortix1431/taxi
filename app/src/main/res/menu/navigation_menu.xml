@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_drive"
+            android:icon="@drawable/baseline_directions_car_24"
+            android:title="Город"/>
+
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/baseline_access_time_24"
+            android:title="История заказов"/>
+
+        <item
+            android:id="@+id/nav_stuff"
+            android:icon="@drawable/round_add_moderator_24"
+            android:title="Безопасность"/>
+        <item
+            android:id="@+id/nav_test"
+            android:icon="@drawable/round_add_moderator_24"
+            android:title="добавить заказ"/>
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/baseline_attach_email_24"
+            android:title="Служба поддержки"/>
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/baseline_desktop_access_disabled_24"
+            android:title="Profile" />
+
+    </group>
+
+
+    <item
+        android:title="">
+
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/baseline_desktop_access_disabled_24"
+                android:title="Выйти из акаунта"/>
+        </menu>
+    </item>
+
+</menu>

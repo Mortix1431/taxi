@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">taxi</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_name">First Name</string> <!-- Подсказка для поля ввода имени -->
+    <string name="last_name">Last Name</string> <!-- Подсказка для поля ввода фамилии -->
+    <string name="birth_date">Birth Date</string> <!-- Подсказка для поля ввода даты рождения -->
+    <string name="male">Male</string> <!-- Текст для переключателя мужского пола -->
+    <string name="female">Female</string> <!-- Текст для переключателя женского пола -->
+    <string name="email">Email</string> <!-- Подсказка для поля ввода email -->
+    <string name="city">City</string> <!-- Подсказка для поля ввода города -->
+    <string name="save">Save</string> <!-- Текст на кнопке сохранения -->
+    <string name="profile_image">Profile Image</string> <!-- Описание изображения профиля для обеспечения доступности -->
+</resources>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".main_activites.Zakaz">
+
+
+    <com.yandex.mapkit.mapview.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="522dp" />
+
+ <FrameLayout
+     android:layout_width="match_parent"
+     android:layout_height="0dp"
+     android:layout_above="@+id/bottom"
+     android:layout_alignParentTop="true">
+
+     <FrameLayout
+         android:layout_width="50dp"
+         android:layout_height="50dp"
+         android:layout_margin="8dp"
+         android:layout_gravity="end|top"/>
+     <FrameLayout
+         android:layout_width="50dp"
+         android:layout_height="50dp"
+         android:layout_margin="8dp"
+         android:layout_gravity="end|top"/>
+ </FrameLayout>
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/fon_zakaz"
+        android:padding="16dp"
+        android:layout_alignParentBottom="true">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Поездка"
+            android:textSize="20dp"
+            android:textColor="@color/white"/>
+
+
+        <EditText
+            android:id="@+id/edit_query"
+            android:layout_width="371dp"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/location"
+            android:drawablePadding="10dp"
+            android:hint="Откуда"
+            android:textColorHint="#9BADB9"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="373dp"
+            android:layout_height="match_parent"
+            android:hint="Куда"
+            android:textColorHint="#9BADB9"
+            android:drawableLeft="@drawable/naznach"
+            android:drawablePadding="10dp"
+            android:textSize="20sp"
+            android:textColor="#9BADB9" />
+
+        <EditText
+            android:layout_width="375dp"
+            android:layout_height="match_parent"
+            android:hint="Предложите цену"
+            android:drawableLeft="@drawable/cash"
+            android:drawablePadding="10dp"
+            android:textSize="20sp"
+            android:textColorHint="#9BADB9"/>
+
+        <EditText
+            android:layout_width="377dp"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:drawableLeft="@drawable/massage"
+            android:drawablePadding="10dp"
+            android:hint="Коментарий к поездке"
+            android:textColorHint="#9BADB9"/>
+        <Button
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#ACFF93"
+            android:text="Заказать"
+            android:textColor="@color/black" />
+        </LinearLayout>
+</RelativeLayout>
+
