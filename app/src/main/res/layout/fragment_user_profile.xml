@@ -50,12 +50,6 @@
     </RadioGroup>
 
     <EditText
-        android:id="@+id/edit_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/email" />
-
-    <EditText
         android:id="@+id/edit_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

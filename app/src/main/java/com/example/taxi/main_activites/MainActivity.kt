@@ -18,16 +18,19 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.taxi.R
 import com.example.taxi.authoriztion.LoginScreen
 import com.example.taxi.authoriztion.RegisterScreen
+import com.example.taxi.fragments.TaxiOrderFragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.yandex.mapkit.MapKitFactory
 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_screen)
-        }
+    }
+
 
 
     fun authClick(view: View) {

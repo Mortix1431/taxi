@@ -2,33 +2,31 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".main_activites.Zakaz">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <com.yandex.mapkit.mapview.MapView
-        android:id="@+id/map"
+        android:id="@+id/mapview"
         android:layout_width="match_parent"
         android:layout_height="522dp" />
 
- <FrameLayout
-     android:layout_width="match_parent"
-     android:layout_height="0dp"
-     android:layout_above="@+id/bottom"
-     android:layout_alignParentTop="true">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/bottom"
+        android:layout_alignParentTop="true">
 
-     <FrameLayout
-         android:layout_width="50dp"
-         android:layout_height="50dp"
-         android:layout_margin="8dp"
-         android:layout_gravity="end|top"/>
-     <FrameLayout
-         android:layout_width="50dp"
-         android:layout_height="50dp"
-         android:layout_margin="8dp"
-         android:layout_gravity="end|top"/>
- </FrameLayout>
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="end|top"/>
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="end|top"/>
+    </FrameLayout>
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
@@ -49,7 +47,7 @@
 
 
         <EditText
-            android:id="@+id/edit_query"
+            android:id="@+id/start_address"
             android:layout_width="371dp"
             android:layout_height="match_parent"
             android:drawableLeft="@drawable/location"
@@ -59,6 +57,7 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/end_address"
             android:layout_width="373dp"
             android:layout_height="match_parent"
             android:hint="Куда"
@@ -69,6 +68,7 @@
             android:textColor="#9BADB9" />
 
         <EditText
+            android:id="@+id/price_offer"
             android:layout_width="375dp"
             android:layout_height="match_parent"
             android:hint="Предложите цену"
@@ -78,6 +78,7 @@
             android:textColorHint="#9BADB9"/>
 
         <EditText
+            android:id="@+id/comment"
             android:layout_width="377dp"
             android:layout_height="match_parent"
             android:textSize="20sp"
@@ -86,11 +87,12 @@
             android:hint="Коментарий к поездке"
             android:textColorHint="#9BADB9"/>
         <Button
-            android:layout_width="375dp"
+            android:id="@+id/order_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ACFF93"
             android:text="Заказать"
             android:textColor="@color/black" />
-        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
 

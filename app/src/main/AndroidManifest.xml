@@ -4,9 +4,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+ <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-     />
     <application
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
@@ -25,8 +24,7 @@
 
         <activity
             android:name=".utils.Navigation_menu"
-            android:exported="false" />
-
+            android:exported="true" />
 
         <activity
             android:name=".authoriztion.RegisterScreen"
@@ -35,10 +33,6 @@
             android:name=".authoriztion.LoginScreen"
             android:exported="false" />
 
-
-        <activity
-            android:name=".main_activites.Zakaz"
-            android:exported="true" />
 
         <activity
             android:name=".main_activites.MainActivity"
@@ -52,6 +46,7 @@
                 android:name="android.app.lib_name"
                 android:value=""/>
         </activity>
+
     </application>
 
 </manifest>

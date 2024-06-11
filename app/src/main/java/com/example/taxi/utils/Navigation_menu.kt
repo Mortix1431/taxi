@@ -10,7 +10,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.taxi.R
-import com.example.taxi.fragments.DriveFragment
 import com.example.taxi.fragments.HystoryFragment
 import com.example.taxi.fragments.StuffFragment
 
@@ -31,6 +30,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.example.taxi.fragments.AddOrderFragment
 
 import com.example.taxi.fragments.SupportFragment
+import com.example.taxi.fragments.TaxiOrderFragment
 import com.example.taxi.fragments.UserProfileFragment
 
 import com.yandex.mapkit.MapKitFactory
@@ -58,7 +58,8 @@ class Navigation_menu : AppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sadd)
-
+        MapKitFactory.setApiKey("52eb0455-d7e5-4526-a6e4-ca5699d8a4bc")
+        MapKitFactory.initialize(this)
         drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -68,11 +69,9 @@ class Navigation_menu : AppCompatActivity(), NavigationView.OnNavigationItemSele
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-
-
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, DriveFragment()).commit()
+                .replace(R.id.fragment_container, TaxiOrderFragment()).commit()
             navigationView.setCheckedItem(R.id.nav_drive)
         }
     }
@@ -80,7 +79,7 @@ class Navigation_menu : AppCompatActivity(), NavigationView.OnNavigationItemSele
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         when (item.itemId) {
             R.id.nav_drive -> {supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, DriveFragment()).commit()
+                .replace(R.id.fragment_container, TaxiOrderFragment()).commit()
                 toolbar.setTitle("Такси")
             }
             R.id.nav_history -> {supportFragmentManager.beginTransaction()

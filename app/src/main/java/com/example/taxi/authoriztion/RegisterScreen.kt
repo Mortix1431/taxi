@@ -36,7 +36,7 @@ class RegisterScreen : AppCompatActivity() {
         val code = Intent(this, Navigation_menu::class.java)
         try {
             lifecycleScope.launch {
-                if(!UserMethods().SignUp(email, pass)) {
+                if(!UserMethods().SignUp(email, pass, )) {
                     toast.setText("Данный E-Mail уже зарегестрирован")
                     toast.show()
                     return@launch

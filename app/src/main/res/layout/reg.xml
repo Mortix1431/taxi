@@ -74,6 +74,28 @@
         android:padding="10dp"
         android:drawableLeft="@drawable/subtract"
         android:fontFamily="@font/rubik_light" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Пользователь" />
+
+        <RadioButton
+            android:id="@+id/radio_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Таксист" />
+
+        <RadioButton
+            android:id="@+id/radio_support"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Служба поддержки" />
+    </RadioGroup>
 
 
     <Button

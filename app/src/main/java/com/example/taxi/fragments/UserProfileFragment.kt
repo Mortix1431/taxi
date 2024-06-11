@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -40,7 +42,7 @@ class UserProfileFragment : Fragment() {
 
     private val PICK_IMAGE = 1 // Код запроса для выбора изображения
     private var selectedImageUri: Uri? = null // Uri для выбранного изображения
-    private lateinit var user: UserProfile // ID пользователя
+    private var user: UserProfile? = null // пользователь
 
     // Метод создания представления фрагмента
     override fun onCreateView(
@@ -73,15 +75,14 @@ class UserProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             selectedImageUri = data?.data
-            binding.profileImage.setImageURI(selectedImageUri)
             if (null != selectedImageUri) {
                 lifecycleScope.launch {
-                    val inputStream = contentResolver.openInputStream(selectedImageUri)
+                    val inputStream =  requireContext().contentResolver.openInputStream(selectedImageUri!!)
                     val bitmap = BitmapFactory.decodeStream(inputStream)
                     val baos = ByteArrayOutputStream()
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos)
                     try {
-                        SupaBaseObject.getClient().storage["Название бакита с аватарами"].upload(user.user_id+".jpg", baos.toByteArray(), true)
+                        SupaBaseObject.getClient().storage["User_image"].upload("${user!!.user_id}.jpg", baos.toByteArray(), true)
                         Toast.makeText(requireContext(), "Аватар успешно загружен", Toast.LENGTH_SHORT).show()
                     } catch(_: Exception) {
                         Toast.makeText(requireContext(), "Произошла ошибка при загрузке аватара", Toast.LENGTH_SHORT).show()
@@ -95,26 +96,20 @@ class UserProfileFragment : Fragment() {
     private fun loadUserProfile() {
         lifecycleScope.launch {
             try {
-                val user_id = UserMethods().getUserSession().id
-                user = supabaseClient.postgrest["users"]
+                val user_id = UserMethods().getUserSession()!!.id
+                user = SupaBaseObject.getClient().postgrest["users"]
                     .select() { eq("user_id", user_id) }
-                    .decodeSingle<UserProfile>
+                    .decodeSingleOrNull<UserProfile>()
                 if(user != null){
                     // Обработка полученного профиля
                     // Заполнение полей формы данными профиля пользователя
-                    binding.editFirstName.setText(user.first_name)
-                    binding.editLastName.setText(user.last_name)
-                    binding.editBirthDate.setText(user.birth_date)
-                    binding.editEmail.setText(user.email)
-                    binding.editCity.setText(user.city)
-                    when (userProfile.gender) {
+                    binding.editFirstName.setText(user!!.first_name)
+                    binding.editLastName.setText(user!!.last_name)
+                    binding.editBirthDate.setText(user!!.birth_date)
+                    binding.editCity.setText(user!!.city)
+                    when (user!!.gender) {
                         "Male" -> binding.radioGroupGender.check(R.id.radio_male)
                         "Female" -> binding.radioGroupGender.check(R.id.radio_female)
-                    }
-                    if(user.profileImageUri != null){
-                        var byteAvatar = SupaBaseObject.getClient1().storage["Название бакита с аватарами"].downloadPublic("${user.user_id}.jpg")
-                        val image: Drawable = BitmapDrawable(BitmapFactory.decodeByteArray(byteAvatar, 0, byteAvatar.size))
-                        binding.profileImage.setImageDrawable(image)
                     }
                 } else {
                     Toast.makeText(requireContext(), "Ошибка загрузки профиля", Toast.LENGTH_SHORT).show()
@@ -122,6 +117,14 @@ class UserProfileFragment : Fragment() {
             } catch (e: Exception) {
                 Log.e("UserProfileFragment", "Ошибка загрузки профиля", e)
                 Toast.makeText(requireContext(), "Ошибка загрузки профиля", Toast.LENGTH_SHORT).show()
+            }
+            try {
+                var byteAvatar = SupaBaseObject.getClient().storage["User_image"].downloadPublic("${user!!.user_id}.jpg")
+                val image: Drawable = BitmapDrawable(BitmapFactory.decodeByteArray(byteAvatar, 0, byteAvatar.size))
+                binding.profileImage.setImageDrawable(image)
+            } catch (e: Exception){
+                Log.e("UserProfileFragment", "Произошла ошибка при загрузке аватара", e)
+                //Toast.makeText(requireContext(), "Произошла ошибка при загрузке аватара", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -136,23 +139,21 @@ class UserProfileFragment : Fragment() {
             R.id.radio_female -> "Female"
             else -> ""
         }
-        val email = binding.editEmail.text.toString()
         val city = binding.editCity.text.toString()
 
         // Проверка заполненности всех полей
-        if (firstName.isEmpty() || lastName.isEmpty() || birthDate.isEmpty() || gender.isEmpty() || email.isEmpty() || city.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || birthDate.isEmpty() || gender.isEmpty() || city.isEmpty()) {
             Toast.makeText(requireContext(), "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Форматирование даты рождения
         val inputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-        val outputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val parsedDate: Date?
         val formattedBirthDate: String
         try {
             parsedDate = inputDateFormat.parse(birthDate)
-            formattedBirthDate = outputDateFormat.format(parsedDate!!)
+            formattedBirthDate = inputDateFormat.format(parsedDate!!)
         } catch (e: Exception) {
             Toast.makeText(requireContext(), "Неверный формат даты", Toast.LENGTH_SHORT).show()
             return
@@ -163,15 +164,14 @@ class UserProfileFragment : Fragment() {
 
         lifecycleScope.launch {
             try {
-                SupaBaseObject.getClient1().postgrest["users"]
-                    .update(
+                SupaBaseObject.getClient().postgrest["users"]
+                    .update({
                         set("first_name", firstName)
                         set("last_name", lastName)
                         set("birth_date", formattedBirthDate)
                         set("gender", gender)
-                        set("email", email)
                         set("city", city)
-                        ) { eq("user_id", user.user_id) }
+                    }) { eq("user_id", user!!.user_id) }
                 Toast.makeText(requireContext(), "Профиль успешно сохранен", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 Log.e("UserProfileFragment", "Ошибка сохранения профиля", e)

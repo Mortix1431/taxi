@@ -6,24 +6,20 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
 import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.realtime.Realtime
 import io.github.jan.supabase.storage.Storage
 
 object SupaBaseObject {
-    private var client = createSupabaseClient(
-        supabaseUrl = "https://iqzbbkamhepdbllgzbpq.supabase.co",
-
-        supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemJia2FtaGVwZGJsbGd6YnBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTk2MDM4NDMsImV4cCI6MjAxNTE3OTg0M30.nON-vzAWMiY4dh_u3DhXkgVqoDd5TRMlvsDADpMrkZc"
+    private val client = createSupabaseClient(
+        supabaseUrl = "https://your-project-id.supabase.co",
+        supabaseKey = "your-supabase-key"
     ) {
-        install(GoTrue)
         install(Postgrest)
+        install(Realtime)
         install(Storage)
-        //install other modules
     }
-
-    var currentUser : User? = null
 
     fun getClient(): SupabaseClient {
         return client
     }
-
 }
